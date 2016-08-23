@@ -59,11 +59,6 @@ module Inspec::Resources
 
     # returns all important updates
     def important
-      # https://msdn.microsoft.com/en-us/library/ff357803(v=vs.85).aspx
-      # e6cf1350-c01b-414d-a61f-263d14d133b4 -> Critical Updates
-      # 0fa1201d-4330-4fa8-8ae9-b877473b6441 -> Security Updates
-      # 28bc880e-0592-4cbf-8f95-c79b17911d5f -> Update Rollups
-
       updates = fetchUpdates
       updates
         .select { |update|
@@ -106,6 +101,11 @@ module Inspec::Resources
 
     private
 
+    # @see: https://msdn.microsoft.com/en-us/library/ff357803(v=vs.85).aspx
+    # e6cf1350-c01b-414d-a61f-263d14d133b4 -> Critical Updates
+    # 0fa1201d-4330-4fa8-8ae9-b877473b6441 -> Security Updates
+    # 28bc880e-0592-4cbf-8f95-c79b17911d5f -> Update Rollups
+    # does not include recommended updates yet
     def isSecurityCategory(uuids)
       uuids.include?('0fa1201d-4330-4fa8-8ae9-b877473b6441') ||
       uuids.include?('28bc880e-0592-4cbf-8f95-c79b17911d5f') ||
