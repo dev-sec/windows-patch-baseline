@@ -1,7 +1,7 @@
 name: windows-patch-benchmark
 title: Windows Patch Benchmark
 summary: Verifies all patches are applied
-version: 0.2.0
+version: 0.3.0
 
 maintainer: Christoph Hartmann
 copyright: Christoph Hartmann
