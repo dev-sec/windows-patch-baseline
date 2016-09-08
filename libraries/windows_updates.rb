@@ -48,9 +48,9 @@ class WindowsUpdateManager < Inspec.resource(1)
   desc 'Use the windows_update InSpec audit resource to test available or installed updates on Microsoft Windows.'
 
   def initialize
-    @update_mgmt = select_update_mgmt
     # verify that this resource is only supported on Windows
-    return skip_resource 'The `windows_update` resource is not supported on your OS.' if inspec.os[:family] != 'windows'
+    return skip_resource 'The `windows_update` resource is not supported on your OS.' if !inspec.os.windows?
+    @update_mgmt = select_update_mgmt
   end
 
   # returns all available updates
@@ -90,9 +90,19 @@ class WindowsUpdateManager < Inspec.resource(1)
 
   # private
 
+  # detection for nano server
+  # @see https://msdn.microsoft.com/en-us/library/hh846315(v=vs.85).aspx
+  def detect_nano
+    return false unless inspec.os[:release].to_i >= 10
+    '1' == inspec.powershell('Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server\ServerLevels" | Select -ExpandProperty "NanoServer" ').stdout.chomp
+  end
+
   def select_update_mgmt
-    # Windows2012Updater.new(inspec)
-    WindowsNanoUpdateFetcher.new(inspec)
+    if detect_nano
+      WindowsNanoUpdateFetcher.new(inspec)
+    else
+      Windows2012UpdateFetcher.new(inspec)
+    end
   end
 
   def fetchUpdates
