@@ -163,7 +163,7 @@ $updates = $searcher.Updates | ForEach-Object {
 }
 $updates | ConvertTo-Json
     EOH
-    cmd = inspec.powershell(script)
+    cmd = @inspec.powershell(script)
 
     begin
       @cache_available = JSON.parse(cmd.stdout)
