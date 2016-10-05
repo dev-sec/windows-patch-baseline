@@ -106,10 +106,12 @@ class WindowsUpdateManager < Inspec.resource(1)
   end
 
   def fetchUpdates
+    return [] if @update_mgmt.nil?
     @update_mgmt.fetchUpdates
   end
 
   def hotfixes
+    return [] if @update_mgmt.nil?
     @update_mgmt.hotfixes
   end
 end
