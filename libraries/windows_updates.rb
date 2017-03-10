@@ -35,7 +35,7 @@ class WindowsUpdate
   end
 
   def installed?
-    return false
+    false
   end
 
   def to_s
@@ -55,28 +55,29 @@ class WindowsUpdateManager < Inspec.resource(1)
 
   # returns all available updates
   def all
-    updates = fetchUpdates
+    updates = fetch_updates
     updates.map { |update| WindowsUpdate.new(update) }
   end
 
   # returns all important updates
   def important
-    updates = fetchUpdates
+    updates = fetch_updates
     updates
       .select { |update|
-        @update_mgmt.isImportant(update)
+        @update_mgmt.important?(update)
+      }.map { |update| # rubocop:disable Style/MultilineBlockChain
+        WindowsUpdate.new(update)
       }
-      .map { |update| WindowsUpdate.new(update) }
   end
 
   # returns all optional updates
   def optional
-    updates = fetchUpdates
-    updates
-      .select { |update|
-        @update_mgmt.isOptional(update)
-      }
-      .map { |update| WindowsUpdate.new(update) }
+    updates = fetch_updates
+    updates.select { |update|
+      @update_mgmt.optional?(update)
+    }.map { |update| # rubocop:disable Style/MultilineBlockChain
+      WindowsUpdate.new(update)
+    }
   end
 
   def reboot_required?
@@ -85,29 +86,31 @@ class WindowsUpdateManager < Inspec.resource(1)
   end
 
   def to_s
-    "Windows Update Services"
+    'Windows Update Services'
   end
 
   # private
 
   # detection for nano server
   # @see https://msdn.microsoft.com/en-us/library/hh846315(v=vs.85).aspx
-  def detect_nano
+  def windows_nano?
     return false unless inspec.os[:release].to_i >= 10
     '1' == inspec.powershell('Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server\ServerLevels" | Select -ExpandProperty "NanoServer" ').stdout.chomp
   end
 
+  private
+
   def select_update_mgmt
-    if detect_nano
+    if windows_nano?
       WindowsNanoUpdateFetcher.new(inspec)
     else
       Windows2012UpdateFetcher.new(inspec)
     end
   end
 
-  def fetchUpdates
+  def fetch_updates
     return [] if @update_mgmt.nil?
-    @update_mgmt.fetchUpdates
+    @update_mgmt.fetch_updates
   end
 
   def hotfixes
@@ -125,7 +128,7 @@ class UpdateFetcher
     []
   end
 
-  def fetchUpdates
+  def fetch_updates
     []
   end
 end
@@ -134,7 +137,7 @@ class Windows2012UpdateFetcher < UpdateFetcher
   def hotfixes
     return @cache_hotfix_installed if defined?(@cache_hotfix_installed)
 
-    hotfix_cmd = "Get-HotFix | Select-Object -Property Status, Description, HotFixId, Caption, InstallDate, InstalledBy | ConvertTo-Json"
+    hotfix_cmd = 'Get-HotFix | Select-Object -Property Status, Description, HotFixId, Caption, InstallDate, InstalledBy | ConvertTo-Json'
     cmd = @inspec.command(hotfix_cmd)
     begin
       @cache_hotfix_installed = JSON.parse(cmd.stdout)
@@ -143,7 +146,7 @@ class Windows2012UpdateFetcher < UpdateFetcher
     end
   end
 
-  def fetchUpdates
+  def fetch_updates
     return @cache_available if defined?(@cache_available)
     script = <<-EOH
 $updateSession = new-object -com "Microsoft.Update.Session"
@@ -175,12 +178,12 @@ $updates | ConvertTo-Json
     end
   end
 
-  def isImportant(update)
-    isSecurityCategory(update['CategoryIDs'])
+  def important?(update)
+    security_category?(update['CategoryIDs'])
   end
 
-  def isOptional(update)
-    !isImportant(update)
+  def optional?(update)
+    !important?(update)
   end
 
   # @see: https://msdn.microsoft.com/en-us/library/ff357803(v=vs.85).aspx
@@ -188,16 +191,16 @@ $updates | ConvertTo-Json
   # 0fa1201d-4330-4fa8-8ae9-b877473b6441 -> Security Updates
   # 28bc880e-0592-4cbf-8f95-c79b17911d5f -> Update Rollups
   # does not include recommended updates yet
-  def isSecurityCategory(uuids)
+  def security_category?(uuids)
     return if uuids.nil?
     uuids.include?('0fa1201d-4330-4fa8-8ae9-b877473b6441') ||
-    uuids.include?('28bc880e-0592-4cbf-8f95-c79b17911d5f') ||
-    uuids.include?('e6cf1350-c01b-414d-a61f-263d14d133b4')
+      uuids.include?('28bc880e-0592-4cbf-8f95-c79b17911d5f') ||
+      uuids.include?('e6cf1350-c01b-414d-a61f-263d14d133b4')
   end
 end
 
 class WindowsNanoUpdateFetcher < UpdateFetcher
-  def fetchUpdates
+  def fetch_updates
     return @cache_available if defined?(@cache_available)
     script = <<-EOH
 $sess = New-CimInstance -Namespace root/Microsoft/Windows/WindowsUpdate -ClassName MSFT_WUOperationsSession
@@ -224,11 +227,11 @@ $updates | ConvertTo-Json
     end
   end
 
-  def isImportant(update)
+  def important?(update)
     %w{Important Critical}.include? update['MsrcSeverity']
   end
 
-  def isOptional(update)
-    !isImportant(update)
+  def optional?(update)
+    !important?(update)
   end
 end
