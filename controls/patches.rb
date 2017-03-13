@@ -11,23 +11,23 @@ win_update = windows_update
 
 control 'verify-kb' do
   impact 0.3
-  title "All updates should be installed"
+  title 'All updates should be installed'
   describe win_update.all.length do
-    it { should eq 0}
+    it { should eq 0 }
   end
 end
 
 control 'important-count' do
   impact 1.0
-  title "No important updates should be available"
+  title 'No important updates should be available'
   describe win_update.important.length do
-    it { should eq 0}
+    it { should eq 0 }
   end
 end
 
 control 'important-patches' do
   impact 1.0
-  title "All important updates are installed"
+  title 'All important updates are installed'
   win_update.important.each { |update|
     describe update do
       it { should be_installed }
@@ -37,15 +37,15 @@ end
 
 control 'optional-count' do
   impact 0.3
-  title "No optional updates should be available"
+  title 'No optional updates should be available'
   describe win_update.optional.length do
-    it { should eq 0}
+    it { should eq 0 }
   end
 end
 
 control 'optional-patches' do
   impact 0.3
-  title "All optional updates are installed"
+  title 'All optional updates are installed'
   win_update.optional.each { |update|
     describe update do
       it { should be_installed }
