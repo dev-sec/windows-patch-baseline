@@ -1,7 +1,7 @@
-name: windows-patch-benchmark
-title: DevSec Windows Patch Benchmark
+name: windows-patch-baseline
+title: DevSec Windows Patch Baseline
 summary: Verifies all patches are applied
-version: 0.3.1
+version: 0.4.0
 
 maintainer: Christoph Hartmann
 copyright: Christoph Hartmann
