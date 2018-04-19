@@ -15,7 +15,7 @@ class WindowsUpdate
   end
 
   def title
-    @data['Title']
+    @data[0]['Title']
   end
 
   # https://msdn.microsoft.com/en-us/library/windows/desktop/aa386906(v=vs.85).aspx
