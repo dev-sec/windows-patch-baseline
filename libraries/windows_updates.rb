@@ -170,20 +170,15 @@ $updates | ConvertTo-Json
     EOH
     cmd = @inspec.powershell(script)
 
-    result = cmd.stdout
     begin
+      result = JSON.parse(cmd.stdout)
+
       # PowerShell's `ConvertTo-Json` returns an Array of Hashes only if there
       # is more than one object passed into it, otherwise it returns a single
-      # Hash. This ensures that an Array is always returned
-      @cache_available = if result.is_a?(Array)
-                           outputs = []
-                           result.each { |r| outputs.push(JSON.parse(r)) }
-                           outputs
-                         else
-                           [JSON.parse(result)]
-                         end
+      # Hash. The below ensures that an Array is always returned regardless.
+      @cache_available = result.is_a?(Array) ? result : [result]
     rescue JSON::ParserError => _e
-      # we return nil if an error occured to indicate, that we were not able to retrieve data
+      # Return `{}` if parsing fails to indicate that we couldn't retrieve data
       @cache_available = {}
     end
   end
@@ -229,20 +224,15 @@ $updates | ConvertTo-Json
     EOH
     cmd = @inspec.powershell(script)
 
-    result = cmd.stdout
     begin
+      result = JSON.parse(cmd.stdout)
+
       # PowerShell's `ConvertTo-Json` returns an Array of Hashes only if there
       # is more than one object passed into it, otherwise it returns a single
-      # Hash. This ensures that an Array is always returned
-      @cache_available = if result.is_a?(Array)
-                           outputs = []
-                           result.each { |r| outputs.push(JSON.parse(r)) }
-                           outputs
-                         else
-                           [JSON.parse(result)]
-                         end
+      # Hash. The below ensures that an Array is always returned regardless.
+      @cache_available = result.is_a?(Array) ? result : [result]
     rescue JSON::ParserError => _e
-      # we return nil if an error occured to indicate, that we were not able to retrieve data
+      # Return `{}` if parsing fails to indicate that we couldn't retrieve data
       @cache_available = {}
     end
   end
