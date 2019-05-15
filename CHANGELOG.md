@@ -1,5 +1,17 @@
 # Change Log
 
+## [0.5.0](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.0) (2019-05-14)
+[Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.4.0...0.5.0)
+
+**Closed issues:**
+
+- Error running against a Azure WIN2012R2 VM [\#8](https://github.com/dev-sec/windows-patch-baseline/issues/8)
+
+**Merged pull requests:**
+
+- Update issue templates [\#11](https://github.com/dev-sec/windows-patch-baseline/pull/11) ([rndmh3ro](https://github.com/rndmh3ro))
+- Modify `\#fetch\_updates` to always return an Array [\#10](https://github.com/dev-sec/windows-patch-baseline/pull/10) ([jerryaldrichiii](https://github.com/jerryaldrichiii))
+
 ## [0.4.0](https://github.com/dev-sec/windows-patch-baseline/tree/0.4.0) (2017-05-08)
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.3.1...0.4.0)
 
