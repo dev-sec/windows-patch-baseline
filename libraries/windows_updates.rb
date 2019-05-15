@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # copyright: 2016, Christoph Hartmann
 # license: MPLv2
 #
@@ -50,6 +51,7 @@ class WindowsUpdateManager < Inspec.resource(1)
   def initialize
     # verify that this resource is only supported on Windows
     return skip_resource 'The `windows_update` resource is not supported on your OS.' if !inspec.os.windows?
+
     @update_mgmt = select_update_mgmt
   end
 
@@ -82,6 +84,7 @@ class WindowsUpdateManager < Inspec.resource(1)
 
   def reboot_required?
     return @chache_reboot if defined?(@chache_reboot)
+
     @chache_reboot = inspec.registry_key('HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update').has_property?('RebootRequired')
   end
 
@@ -95,7 +98,8 @@ class WindowsUpdateManager < Inspec.resource(1)
   # @see https://msdn.microsoft.com/en-us/library/hh846315(v=vs.85).aspx
   def windows_nano?
     return false unless inspec.os[:release].to_i >= 10
-    '1' == inspec.powershell('Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server\ServerLevels" | Select -ExpandProperty "NanoServer" ').stdout.chomp
+
+    inspec.powershell('Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Server\ServerLevels" | Select -ExpandProperty "NanoServer" ').stdout.chomp == '1'
   end
 
   private
@@ -110,11 +114,13 @@ class WindowsUpdateManager < Inspec.resource(1)
 
   def fetch_updates
     return [] if @update_mgmt.nil?
+
     @update_mgmt.fetch_updates
   end
 
   def hotfixes
     return [] if @update_mgmt.nil?
+
     @update_mgmt.hotfixes
   end
 end
@@ -148,26 +154,27 @@ class Windows2012UpdateFetcher < UpdateFetcher
 
   def fetch_updates
     return @cache_available if defined?(@cache_available)
-    script = <<-EOH
-$updateSession = new-object -com "Microsoft.Update.Session"
-$searcher=$updateSession.CreateupdateSearcher().Search(("IsInstalled=0 and Type='Software'"))
-$updates = $searcher.Updates | ForEach-Object {
-  $update = $_
-  $value = New-Object psobject -Property @{
-    "UpdateID" =  $update.Identity.UpdateID;
-    "RevisionNumber" =  $update.Identity.RevisionNumber;
-    "CategoryIDs" = $update.Categories | % { $_.CategoryID }
-    "Title" = $update.Title
-    "SecurityBulletinIDs" = $update.SecurityBulletinIDs
-    "RebootRequired" = $update.RebootRequired
-    "KBArticleIDs" = $update.KBArticleIDs
-    "CveIDs" = $update.CveIDs
-    "MsrcSeverity" = $update.MsrcSeverity
+
+    script = <<-SCR
+  $updateSession = new-object -com "Microsoft.Update.Session"
+  $searcher=$updateSession.CreateupdateSearcher().Search(("IsInstalled=0 and Type='Software'"))
+  $updates = $searcher.Updates | ForEach-Object {
+    $update = $_
+    $value = New-Object psobject -Property @{
+      "UpdateID" =  $update.Identity.UpdateID;
+      "RevisionNumber" =  $update.Identity.RevisionNumber;
+      "CategoryIDs" = $update.Categories | % { $_.CategoryID }
+      "Title" = $update.Title
+      "SecurityBulletinIDs" = $update.SecurityBulletinIDs
+      "RebootRequired" = $update.RebootRequired
+      "KBArticleIDs" = $update.KBArticleIDs
+      "CveIDs" = $update.CveIDs
+      "MsrcSeverity" = $update.MsrcSeverity
+    }
+    $value
   }
-  $value
-}
-$updates | ConvertTo-Json
-    EOH
+  $updates | ConvertTo-Json
+    SCR
     cmd = @inspec.powershell(script)
 
     begin
@@ -198,6 +205,7 @@ $updates | ConvertTo-Json
   # does not include recommended updates yet
   def security_category?(uuids)
     return if uuids.nil?
+
     uuids.include?('0fa1201d-4330-4fa8-8ae9-b877473b6441') ||
       uuids.include?('28bc880e-0592-4cbf-8f95-c79b17911d5f') ||
       uuids.include?('e6cf1350-c01b-414d-a61f-263d14d133b4')
@@ -207,21 +215,22 @@ end
 class WindowsNanoUpdateFetcher < UpdateFetcher
   def fetch_updates
     return @cache_available if defined?(@cache_available)
-    script = <<-EOH
-$sess = New-CimInstance -Namespace root/Microsoft/Windows/WindowsUpdate -ClassName MSFT_WUOperationsSession
-$scanResults = Invoke-CimMethod -InputObject $sess -MethodName ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0";OnlineScan=$true}
-$updates = $scanResults.Updates | ForEach-Object {
-  $update = $_
-  $value = New-Object psobject -Property @{
-    "UpdateID" =  $update.UpdateID;
-    "RevisionNumber" =  $update.RevisionNumber;
-    "Title" = $update.Title
-    "MsrcSeverity" = $update.MsrcSeverity
+
+    script = <<-SCR
+  $sess = New-CimInstance -Namespace root/Microsoft/Windows/WindowsUpdate -ClassName MSFT_WUOperationsSession
+  $scanResults = Invoke-CimMethod -InputObject $sess -MethodName ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0";OnlineScan=$true}
+  $updates = $scanResults.Updates | ForEach-Object {
+    $update = $_
+    $value = New-Object psobject -Property @{
+      "UpdateID" =  $update.UpdateID;
+      "RevisionNumber" =  $update.RevisionNumber;
+      "Title" = $update.Title
+      "MsrcSeverity" = $update.MsrcSeverity
+    }
+    $value
   }
-  $value
-}
-$updates | ConvertTo-Json
-    EOH
+  $updates | ConvertTo-Json
+    SCR
     cmd = @inspec.powershell(script)
 
     begin

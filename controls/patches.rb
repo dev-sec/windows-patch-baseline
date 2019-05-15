@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 # copyright: 2016, Christoph Hartmann
 # license: MPLv2
 #

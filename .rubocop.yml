@@ -7,6 +7,8 @@ AllCops:
   - 'vendor/**/*'
 Documentation:
   Enabled: false
+Lint/ReturnInVoidContext:
+  Enabled: false
 AlignParameters:
   Enabled: true
 Encoding:
@@ -38,9 +40,9 @@ Style/PercentLiteralDelimiters:
     '%w': '{}'
     '%W': ()
     '%x': ()
-Style/AlignHash:
+Layout/AlignHash:
   Enabled: false
-Style/PredicateName:
+Naming/PredicateName:
   Enabled: false
 Style/ZeroLengthPredicate:
   Enabled: false
@@ -56,9 +58,9 @@ Style/AndOr:
   Enabled: false
 Style/Not:
   Enabled: false
-Style/FileName:
+Naming/FileName:
   Enabled: false
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
@@ -68,7 +70,7 @@ Style/UnlessElse:
   Enabled: false
 BlockDelimiters:
   Enabled: false
-Style/SpaceAroundOperators:
+Layout/SpaceAroundOperators:
   Enabled: false
 Style/IfUnlessModifier:
   Enabled: false
