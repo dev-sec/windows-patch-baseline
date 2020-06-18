@@ -1,8 +1,16 @@
 # Changelog
 
-## [0.4.1](https://github.com/dev-sec/windows-patch-baseline/tree/0.4.1) (2020-06-18)
+## [0.5.2](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.2) (2020-06-18)
 
-[Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.0...0.4.1)
+[Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.1...0.5.2)
+
+**Merged pull requests:**
+
+- version alignment [\#16](https://github.com/dev-sec/windows-patch-baseline/pull/16) ([micheelengronne](https://github.com/micheelengronne))
+
+## [0.5.1](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.1) (2020-06-18)
+
+[Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.0...0.5.1)
 
 **Closed issues:**
 
