@@ -1,12 +1,11 @@
+---
 name: windows-patch-baseline
 title: DevSec Windows Patch Baseline
 summary: Verifies all patches are applied
-version: 0.5.0
-
+version: 0.4.1
 maintainer: Christoph Hartmann
 copyright: Christoph Hartmann
 copyright_email: chris@lollyrock.com
 license: MPLv2
-
 supports:
-  - os-family: windows
+    - os-family: windows
