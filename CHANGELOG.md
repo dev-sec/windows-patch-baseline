@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.3](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.3) (2020-07-23)
+
+[Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.2...0.5.3)
+
+**Merged pull requests:**
+
+- The release draft references the correct SHA [\#18](https://github.com/dev-sec/windows-patch-baseline/pull/18) ([micheelengronne](https://github.com/micheelengronne))
+
 ## [0.5.2](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.2) (2020-06-18)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.1...0.5.2)
