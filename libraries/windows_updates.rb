@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 # copyright: 2016, Christoph Hartmann
 # license: MPLv2
@@ -50,7 +51,7 @@ class WindowsUpdateManager < Inspec.resource(1)
 
   def initialize
     # verify that this resource is only supported on Windows
-    return skip_resource 'The `windows_update` resource is not supported on your OS.' if !inspec.os.windows?
+    return skip_resource 'The `windows_update` resource is not supported on your OS.' unless inspec.os.windows?
 
     @update_mgmt = select_update_mgmt
   end
@@ -65,21 +66,21 @@ class WindowsUpdateManager < Inspec.resource(1)
   def important
     updates = fetch_updates
     updates
-      .select { |update|
+      .select do |update|
         @update_mgmt.important?(update)
-      }.map { |update| # rubocop:disable Style/MultilineBlockChain
+      end.map do |update| # rubocop:disable Style/MultilineBlockChain
         WindowsUpdate.new(update)
-      }
+      end
   end
 
   # returns all optional updates
   def optional
     updates = fetch_updates
-    updates.select { |update|
+    updates.select do |update|
       @update_mgmt.optional?(update)
-    }.map { |update| # rubocop:disable Style/MultilineBlockChain
+    end.map do |update| # rubocop:disable Style/MultilineBlockChain
       WindowsUpdate.new(update)
-    }
+    end
   end
 
   def reboot_required?
@@ -148,7 +149,7 @@ class Windows2012UpdateFetcher < UpdateFetcher
     begin
       @cache_hotfix_installed = JSON.parse(cmd.stdout)
     rescue JSON::ParserError => _e
-      return []
+      []
     end
   end
 
@@ -247,7 +248,7 @@ class WindowsNanoUpdateFetcher < UpdateFetcher
   end
 
   def important?(update)
-    %w{Important Critical}.include? update['MsrcSeverity']
+    %w[Important Critical].include? update['MsrcSeverity']
   end
 
   def optional?(update)
