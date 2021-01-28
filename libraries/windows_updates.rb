@@ -49,7 +49,8 @@ class WindowsUpdateManager < Inspec.resource(1)
   name 'windows_update'
   desc 'Use the windows_update InSpec audit resource to test available or installed updates on Microsoft Windows.'
 
-  def initialize
+  def initialize # rubocop:disable_block Lint/ReturnInVoidContext
+    super()
     # verify that this resource is only supported on Windows
     return skip_resource 'The `windows_update` resource is not supported on your OS.' unless inspec.os.windows?
 
@@ -84,9 +85,9 @@ class WindowsUpdateManager < Inspec.resource(1)
   end
 
   def reboot_required?
-    return @chache_reboot if defined?(@chache_reboot)
+    return @reboot_required if defined?(@reboot_required)
 
-    @chache_reboot = inspec.registry_key('HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update').has_property?('RebootRequired')
+    @reboot_required = inspec.registry_key('HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update').has_property?('RebootRequired')
   end
 
   def to_s
