@@ -49,7 +49,7 @@ class WindowsUpdateManager < Inspec.resource(1)
   name 'windows_update'
   desc 'Use the windows_update InSpec audit resource to test available or installed updates on Microsoft Windows.'
 
-  def initialize # rubocop:disable_block Lint/ReturnInVoidContext
+  def initialize # rubocop:disable Lint/ReturnInVoidContext
     super()
     # verify that this resource is only supported on Windows
     return skip_resource 'The `windows_update` resource is not supported on your OS.' unless inspec.os.windows?
