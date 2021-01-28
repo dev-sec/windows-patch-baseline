@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 # copyright: 2016, Christoph Hartmann
 # license: MPLv2
@@ -29,11 +30,11 @@ end
 control 'important-patches' do
   impact 1.0
   title 'All important updates are installed'
-  win_update.important.each { |update|
+  win_update.important.each do |update|
     describe update do
       it { should be_installed }
     end
-  }
+  end
 end
 
 control 'optional-count' do
@@ -47,9 +48,9 @@ end
 control 'optional-patches' do
   impact 0.3
   title 'All optional updates are installed'
-  win_update.optional.each { |update|
+  win_update.optional.each do |update|
     describe update do
       it { should be_installed }
     end
-  }
+  end
 end

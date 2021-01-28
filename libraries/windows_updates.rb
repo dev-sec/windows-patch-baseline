@@ -1,4 +1,5 @@
 # encoding: utf-8
+# frozen_string_literal: true
 
 # copyright: 2016, Christoph Hartmann
 # license: MPLv2
@@ -49,8 +50,9 @@ class WindowsUpdateManager < Inspec.resource(1)
   desc 'Use the windows_update InSpec audit resource to test available or installed updates on Microsoft Windows.'
 
   def initialize
+    super()
     # verify that this resource is only supported on Windows
-    return skip_resource 'The `windows_update` resource is not supported on your OS.' if !inspec.os.windows?
+    return skip_resource 'The `windows_update` resource is not supported on your OS.' unless inspec.os.windows? # rubocop:disable Lint/ReturnInVoidContext
 
     @update_mgmt = select_update_mgmt
   end
@@ -65,27 +67,27 @@ class WindowsUpdateManager < Inspec.resource(1)
   def important
     updates = fetch_updates
     updates
-      .select { |update|
+      .select do |update|
         @update_mgmt.important?(update)
-      }.map { |update| # rubocop:disable Style/MultilineBlockChain
+      end.map do |update| # rubocop:disable Style/MultilineBlockChain
         WindowsUpdate.new(update)
-      }
+      end
   end
 
   # returns all optional updates
   def optional
     updates = fetch_updates
-    updates.select { |update|
+    updates.select do |update|
       @update_mgmt.optional?(update)
-    }.map { |update| # rubocop:disable Style/MultilineBlockChain
+    end.map do |update| # rubocop:disable Style/MultilineBlockChain
       WindowsUpdate.new(update)
-    }
+    end
   end
 
   def reboot_required?
-    return @chache_reboot if defined?(@chache_reboot)
+    return @reboot_required if defined?(@reboot_required)
 
-    @chache_reboot = inspec.registry_key('HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update').has_property?('RebootRequired')
+    @reboot_required = inspec.registry_key('HKLM\Software\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update').has_property?('RebootRequired')
   end
 
   def to_s
@@ -148,7 +150,7 @@ class Windows2012UpdateFetcher < UpdateFetcher
     begin
       @cache_hotfix_installed = JSON.parse(cmd.stdout)
     rescue JSON::ParserError => _e
-      return []
+      []
     end
   end
 
@@ -247,7 +249,7 @@ class WindowsNanoUpdateFetcher < UpdateFetcher
   end
 
   def important?(update)
-    %w{Important Critical}.include? update['MsrcSeverity']
+    %w[Important Critical].include? update['MsrcSeverity']
   end
 
   def optional?(update)
