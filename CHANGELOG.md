@@ -1,16 +1,21 @@
 # Changelog
 
-## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-01-26)
+## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-01-28)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.3...0.5.4)
 
 **Merged pull requests:**
 
+- Fix lint [\#20](https://github.com/dev-sec/windows-patch-baseline/pull/20) ([schurzi](https://github.com/schurzi))
 - GitHub action [\#19](https://github.com/dev-sec/windows-patch-baseline/pull/19) ([rndmh3ro](https://github.com/rndmh3ro))
 
 ## [0.5.3](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.3) (2020-07-23)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.2...0.5.3)
+
+**Merged pull requests:**
+
+- The release draft references the correct SHA [\#18](https://github.com/dev-sec/windows-patch-baseline/pull/18) ([micheelengronne](https://github.com/micheelengronne))
 
 ## [0.5.2](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.2) (2020-06-18)
 
@@ -42,7 +47,6 @@
 
 **Merged pull requests:**
 
-- The release draft references the correct SHA [\#18](https://github.com/dev-sec/windows-patch-baseline/pull/18) ([micheelengronne](https://github.com/micheelengronne))
 - Bump version to 0.5.0 and switch to inspec 3 for check [\#12](https://github.com/dev-sec/windows-patch-baseline/pull/12) ([alexpop](https://github.com/alexpop))
 - Update issue templates [\#11](https://github.com/dev-sec/windows-patch-baseline/pull/11) ([rndmh3ro](https://github.com/rndmh3ro))
 - Modify `\#fetch\_updates` to always return an Array [\#10](https://github.com/dev-sec/windows-patch-baseline/pull/10) ([jerryaldrichiii](https://github.com/jerryaldrichiii))
