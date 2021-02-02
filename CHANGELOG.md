@@ -1,11 +1,12 @@
 # Changelog
 
-## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-01-28)
+## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-02-02)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.3...0.5.4)
 
 **Merged pull requests:**
 
+- use version tag for changelog action [\#21](https://github.com/dev-sec/windows-patch-baseline/pull/21) ([schurzi](https://github.com/schurzi))
 - Fix lint [\#20](https://github.com/dev-sec/windows-patch-baseline/pull/20) ([schurzi](https://github.com/schurzi))
 - GitHub action [\#19](https://github.com/dev-sec/windows-patch-baseline/pull/19) ([rndmh3ro](https://github.com/rndmh3ro))
 
