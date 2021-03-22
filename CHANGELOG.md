@@ -1,11 +1,12 @@
 # Changelog
 
-## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-02-02)
+## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-03-22)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.3...0.5.4)
 
 **Merged pull requests:**
 
+- add dependency to chef-config for CI [\#22](https://github.com/dev-sec/windows-patch-baseline/pull/22) ([schurzi](https://github.com/schurzi))
 - use version tag for changelog action [\#21](https://github.com/dev-sec/windows-patch-baseline/pull/21) ([schurzi](https://github.com/schurzi))
 - Fix lint [\#20](https://github.com/dev-sec/windows-patch-baseline/pull/20) ([schurzi](https://github.com/schurzi))
 - GitHub action [\#19](https://github.com/dev-sec/windows-patch-baseline/pull/19) ([rndmh3ro](https://github.com/rndmh3ro))
@@ -17,14 +18,11 @@
 **Merged pull requests:**
 
 - The release draft references the correct SHA [\#18](https://github.com/dev-sec/windows-patch-baseline/pull/18) ([micheelengronne](https://github.com/micheelengronne))
+- version alignment [\#16](https://github.com/dev-sec/windows-patch-baseline/pull/16) ([micheelengronne](https://github.com/micheelengronne))
 
 ## [0.5.2](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.2) (2020-06-18)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.1...0.5.2)
-
-**Merged pull requests:**
-
-- version alignment [\#16](https://github.com/dev-sec/windows-patch-baseline/pull/16) ([micheelengronne](https://github.com/micheelengronne))
 
 ## [0.5.1](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.1) (2020-06-18)
 
