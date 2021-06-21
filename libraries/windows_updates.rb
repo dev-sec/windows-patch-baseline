@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 # copyright: 2016, Christoph Hartmann
@@ -249,7 +248,7 @@ class WindowsNanoUpdateFetcher < UpdateFetcher
   end
 
   def important?(update)
-    %w[Important Critical].include? update['MsrcSeverity']
+    %w(Important Critical).include? update['MsrcSeverity']
   end
 
   def optional?(update)
