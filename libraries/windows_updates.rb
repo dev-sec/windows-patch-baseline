@@ -16,6 +16,7 @@ class WindowsUpdate
     @data = data
   end
 
+#added fix for issue13
   def title
     @data = @data.is_a?(Array) ? @data.flatten[0] : (@data || {})
     @data['Title']
