@@ -6,6 +6,7 @@ version: 0.5.4
 maintainer: Christoph Hartmann
 copyright: Christoph Hartmann
 copyright_email: chris@lollyrock.com
+inspec_version: '>= 4.6.3'
 license: MPLv2
 supports:
     - os-family: windows
