@@ -1,11 +1,16 @@
 # Changelog
 
-## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2021-09-14)
+## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2022-01-12)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.3...0.5.4)
 
+**Closed issues:**
+
+- libraries/windows_updates.rb:18:in `\[\]': no implicit conversion of String into Integer \(TypeError\) [\#13](https://github.com/dev-sec/windows-patch-baseline/issues/13)
+
 **Merged pull requests:**
 
+- Minimum requirements [\#28](https://github.com/dev-sec/windows-patch-baseline/pull/28) ([micheelengronne](https://github.com/micheelengronne))
 - fix for issue 13 [\#26](https://github.com/dev-sec/windows-patch-baseline/pull/26) ([ppradhan9](https://github.com/ppradhan9))
 - fix rubocop error for Rakefile [\#23](https://github.com/dev-sec/windows-patch-baseline/pull/23) ([schurzi](https://github.com/schurzi))
 - add dependency to chef-config for CI [\#22](https://github.com/dev-sec/windows-patch-baseline/pull/22) ([schurzi](https://github.com/schurzi))
