@@ -1,4 +1,3 @@
-# encoding: utf-8
 # frozen_string_literal: true
 
 # copyright: 2016, Christoph Hartmann
@@ -53,7 +52,7 @@ class WindowsUpdateManager < Inspec.resource(1)
   def initialize
     super()
     # verify that this resource is only supported on Windows
-    return skip_resource 'The `windows_update` resource is not supported on your OS.' unless inspec.os.windows? # rubocop:disable Lint/ReturnInVoidContext
+    return skip_resource 'The `windows_update` resource is not supported on your OS.' unless inspec.os.windows?
 
     @update_mgmt = select_update_mgmt
   end
@@ -250,7 +249,7 @@ class WindowsNanoUpdateFetcher < UpdateFetcher
   end
 
   def important?(update)
-    %w[Important Critical].include? update['MsrcSeverity']
+    %w(Important Critical).include? update['MsrcSeverity']
   end
 
   def optional?(update)
