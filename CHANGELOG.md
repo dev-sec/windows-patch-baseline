@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.5](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.5) (2022-03-18)
+
+[Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.4...0.5.5)
+
+**Merged pull requests:**
+
+- Change linting to Cookstyle [\#29](https://github.com/dev-sec/windows-patch-baseline/pull/29) ([schurzi](https://github.com/schurzi))
+
 ## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2022-01-12)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.3...0.5.4)
