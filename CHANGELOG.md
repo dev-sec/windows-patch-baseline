@@ -1,11 +1,20 @@
 # Changelog
 
-## [0.5.5](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.5) (2022-03-18)
+## [0.5.5](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.5) (2023-03-31)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.4...0.5.5)
 
+**Implemented enhancements:**
+
+- use centralised issue templates and workflows [\#30](https://github.com/dev-sec/windows-patch-baseline/pull/30) ([schurzi](https://github.com/schurzi))
+
+**Closed issues:**
+
+- \[Security\] Workflow release.yml is using vulnerable action mikefarah/yq [\#27](https://github.com/dev-sec/windows-patch-baseline/issues/27)
+
 **Merged pull requests:**
 
+- Configure Renovate [\#31](https://github.com/dev-sec/windows-patch-baseline/pull/31) ([renovate[bot]](https://github.com/apps/renovate))
 - Change linting to Cookstyle [\#29](https://github.com/dev-sec/windows-patch-baseline/pull/29) ([schurzi](https://github.com/schurzi))
 
 ## [0.5.4](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.4) (2022-01-12)
