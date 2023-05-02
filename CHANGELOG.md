@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.5.5](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.5) (2023-03-31)
+## [0.5.5](https://github.com/dev-sec/windows-patch-baseline/tree/0.5.5) (2023-05-02)
 
 [Full Changelog](https://github.com/dev-sec/windows-patch-baseline/compare/0.5.4...0.5.5)
 
@@ -14,6 +14,7 @@
 
 **Merged pull requests:**
 
+- add spellchecking with codespell [\#32](https://github.com/dev-sec/windows-patch-baseline/pull/32) ([schurzi](https://github.com/schurzi))
 - Configure Renovate [\#31](https://github.com/dev-sec/windows-patch-baseline/pull/31) ([renovate[bot]](https://github.com/apps/renovate))
 - Change linting to Cookstyle [\#29](https://github.com/dev-sec/windows-patch-baseline/pull/29) ([schurzi](https://github.com/schurzi))
 
